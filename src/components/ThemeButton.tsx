@@ -1,22 +1,27 @@
-import { FaMoon } from "react-icons/fa";
-import { BsSunFill } from "react-icons/bs";
 
-export default function ThemeButton() {
-  const toggleTheme = () => {};
+import { IconButton } from "@mui/material";
+import {FaSun} from 'react-icons/fa'
+import {FiMoon} from 'react-icons/fi'
+import { useTheme } from "../hooks/useTheme";
 
-  return (
-    <div
-      className="relative w-16 h-8 flex items-center
-  dark:bg-gray-900 bg-teal-500 cursor-pointer
-  rounded-full p-1
-  "
-      onClick={() => toggleTheme()}
-    >
-      <FaMoon className="text-white" size={18} />
-      <div
-        className="absolute bg-white dark:bg-medium w-6 h-6 rounded-full shadow-sm transform transition-transform duration-300"
-        // style={darkMode ? { left: "2px" } : { right: "2px" }}
-      ></div>
-    </div>
-  );
+export default function ThemeButton(){
+
+    const {theme,setTheme} = useTheme()
+
+
+    const changeTheme = ()=>{
+        if(theme==='light'){
+            setTheme('dark')
+        }
+        else{
+            setTheme('light')
+        }
+    }
+
+
+    return(
+        <IconButton onClick={()=>changeTheme()} sx={{ p: 0 }}>
+            {theme === 'light' ? <FiMoon color="white"/> : <FaSun color="yellow"/>}
+        </IconButton>
+    )
 }
