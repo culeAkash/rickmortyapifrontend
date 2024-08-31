@@ -30,8 +30,8 @@ export default function Navbar() {
 
 
   return (
-    <AppBar position="static">
-      <Container maxWidth='xl' className="dark:bg-sky-900 dark:text-slate-50">
+    <AppBar position="static" className="min-h-full grid justify-center">
+      <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <Typography
             variant="h6"

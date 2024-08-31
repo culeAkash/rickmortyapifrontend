@@ -5,16 +5,22 @@ import Navbar from "./components/Navbar";
 import { ThemeProvider } from "./context/ThemeContext";
 import HomePage from "./pages/HomePage";
 import { useTheme } from "./hooks/useTheme";
-// import { useTheme } from "@emotion/react";
+import { getAllCharacters } from "./services/CharacterService";
 
 function App() {
+
+  getAllCharacters();
 
   const { theme } = useTheme();
 
   return (
-    <div className={theme}>
+    <div className={`${theme} min-h-screen min-w-full h-screen`}>
+      <div className="h-1/6">
       <Navbar />
+      </div>
+      <div className="h-5/6">
       <HomePage />
+      </div>
     </div>
   );
 }
