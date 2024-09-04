@@ -7,10 +7,12 @@ const params : CharacterFilterInterface = {
 }
 
 
-export const getAllCharacters = async (params? : CharacterFilterInterface)=>{
-    let response = await myAxios.get("/character",{
+export const getAllCharacters = async (params? : CharacterFilterInterface) =>{
+    console.log(params);
+    
+    let data = myAxios.get("/character",{
         params : params
-    })
-    const data : CharacterResponseInterface = response.data;
+    }).then(response => response.data).catch(error => {} );
+    
     return data;
 }

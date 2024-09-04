@@ -1,10 +1,10 @@
 import { getAllCharacters } from "../services/CharacterService";
 import { CharacterFilterInterface, CharacterInterface, CharacterResponseInterface } from "./interfaces";
 
-export async function getCharactersHelper(params? : CharacterFilterInterface) : Promise<CharacterInterface[]>{
-    const characterData : CharacterResponseInterface = await getAllCharacters();
+export async function getCharactersHelper(params? : CharacterFilterInterface) : Promise<CharacterResponseInterface>{
+    console.log(params);
+    
+    const characterData : CharacterResponseInterface = await getAllCharacters(params);
 
-    const characters : CharacterInterface[] = characterData.results;
-
-    return characters;
+    return characterData;
 }

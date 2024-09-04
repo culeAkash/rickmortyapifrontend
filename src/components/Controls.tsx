@@ -1,6 +1,6 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
-import { GenderType, StatusType } from "../utils/types";
+import { ChangeFilterType, GenderType, SpeciesType, StatusType } from "../utils/types";
 
 const genderOptions : GenderType[] =
 [
@@ -11,7 +11,7 @@ const statusOptions : StatusType[] = [
     "alive","dead","unknown"
 ]
 
-const speciesOptions : string[] =[
+const speciesOptions : SpeciesType[] =[
     "Human",
     "Alien",
     "Humanoid",
@@ -25,15 +25,18 @@ const speciesOptions : string[] =[
     "Planet",
 ]
 
-type ChangeFilterType = (filter: { gender?: GenderType; status?: StatusType ; species?: string }) => void;
+
 
 export default function Controls({changeFilter}:{changeFilter : ChangeFilterType}) {
 
     const [status,setStatus] = useState<StatusType | undefined>(undefined);
+    const [gender,setGender] = useState<GenderType | undefined>(undefined);
+    const [species,setSpecies] = useState<SpeciesType | undefined>(undefined);
 
     useEffect(()=>{
-        changeFilter({status})
-    },[status])
+        console.log(status);
+        changeFilter({status,gender,species})
+    },[status,gender,species])
 
     return (
         <div className="flex flex-col gap-2 place-content-center">
@@ -49,12 +52,14 @@ export default function Controls({changeFilter}:{changeFilter : ChangeFilterType
                 options={speciesOptions}
                 sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Species" />}
+                onChange={(event: any, newValue: string | null)=>setSpecies(newValue as SpeciesType)}
             />
             <Autocomplete
                 disablePortal
                 options={genderOptions}
                 sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Gender" />}
+                onChange={(event: any, newValue: string | null)=>setGender(newValue as GenderType)}
             />
         </div>
     )
