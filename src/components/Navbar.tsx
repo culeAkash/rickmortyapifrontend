@@ -3,17 +3,18 @@ import AppBar from '@mui/material/AppBar';
 import { Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import ThemeButton from "./ThemeButton";
+import { Link } from "react-router-dom";
 
 type Page = {
-  pageId : number;
-  pageName : string
+  pageId: number;
+  pageName: string
 }
 
 
-const PAGES : Page[] = [
-  {pageId:1,pageName:'Characters'},
-  {pageId:2,pageName:'Episodes'},
-  {pageId:3,pageName:'Locations'}
+const PAGES: Page[] = [
+  { pageId: 1, pageName: 'Characters' },
+  { pageId: 2, pageName: 'Episodes' },
+  { pageId: 3, pageName: 'Locations' }
 ];
 
 export default function Navbar() {
@@ -23,7 +24,7 @@ export default function Navbar() {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseNavMenu = (page? : number) => {
+  const handleCloseNavMenu = (page?: number) => {
     setAnchorElNav(null);
     console.log(page)
   };
@@ -33,11 +34,12 @@ export default function Navbar() {
     <AppBar position="static" className="min-h-full grid justify-center">
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
+          <Link to="/">
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -50,6 +52,7 @@ export default function Navbar() {
           >
             RICK & MORTY API
           </Typography>
+          </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -74,13 +77,15 @@ export default function Navbar() {
                 horizontal: 'left',
               }}
               open={Boolean(anchorElNav)}
-              onClose={()=>handleCloseNavMenu()}
+              onClose={() => handleCloseNavMenu()}
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
               {PAGES.map((page) => (
-                <MenuItem key={page.pageId} onClick={()=>handleCloseNavMenu(page.pageId)}>
-                  <Typography sx={{ textAlign: 'center' }}>{page.pageName}</Typography>
-                </MenuItem>
+                <Link to={`/${page.pageName}`} style={{ textDecoration: 'none' }}>
+                  <MenuItem key={page.pageId} onClick={() => handleCloseNavMenu(page.pageId)}>
+                    <Typography sx={{ textAlign: 'center' }}>{page.pageName}</Typography>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>
@@ -102,19 +107,21 @@ export default function Navbar() {
           >
             RICK AND MORTY API
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' },marginLeft : '10rem', }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, marginLeft: '10rem', }}>
             {PAGES.map((page) => (
-              <Button
-                key={page.pageId}
-                onClick={()=>handleCloseNavMenu(page.pageId)}
-                sx={{ my: 2, color: 'white', display: 'block',mx:2 }}
-              >
-                {page.pageName}
-              </Button>
+              <Link to={`/${page.pageName}`} style={{ textDecoration: 'none' }}>
+                <Button
+                  key={page.pageId}
+                  onClick={() => handleCloseNavMenu(page.pageId)}
+                  sx={{ my: 2, color: 'white', display: 'block', mx: 2 }}
+                >
+                  {page.pageName}
+                </Button>
+              </Link>
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-              <ThemeButton/>
+            <ThemeButton />
           </Box>
         </Toolbar>
       </Container>
