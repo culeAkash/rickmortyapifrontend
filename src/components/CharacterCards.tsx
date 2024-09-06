@@ -5,13 +5,19 @@ export default function CharacterCards({characters}:{characters:CharacterInterfa
 
     console.log(characters);
     
-
-    if(characters===undefined) return <div className="text-center mt-10">No characters found</div>
+    if(characters===undefined){
+        return (
+            <div className="text-center">
+                <p className="font-mono text-2xl">No characters found</p>
+            </div>
+        )
+    }
+    
     return (
         <div className="grid lg:grid-cols-3 grid-cols-1 md:gap-3 gap-2 max-w-full px-3 mt-4">
             {characters.map((characterData)=>{
                 return (
-                    <CharacterCard characterData = {characterData}/>
+                    <CharacterCard key={characterData.id} characterData = {characterData}/>
                 )
             })}
            

@@ -6,5 +6,8 @@ export async function getCharactersHelper(params? : CharacterFilterInterface) : 
     
     const characterData : CharacterResponseInterface = await getAllCharacters(params);
 
+    console.log(characterData);
+    
+
     return characterData;
 }

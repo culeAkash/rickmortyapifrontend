@@ -6,40 +6,46 @@ import PaginationComponent from "../components/PaginationComponent";
 import { useCharacters } from "../hooks/useCharacters";
 import { CharacterFilterInterface } from "../utils/interfaces";
 import { getCharactersHelper } from "../utils/helpers";
-import { GenderType, StatusType } from "../utils/types";
+import { GenderType, SpeciesType, StatusType } from "../utils/types";
+
+
 
 export default function CharactersPage(){
-        const {characters,setCharacters} = useCharacters()
-        const [page,setPage] = useState(2);
+        const {characters,changeCharacters,pageInfo} = useCharacters()
+        console.log(characters);
 
-            const changeFilter = ({gender=undefined,status=undefined,species = undefined,name=undefined,page=2}:{
-                gender ?: GenderType | undefined,
-                status ?: StatusType | undefined,
-                species ?:string | undefined
-                name ?: string | undefined
-                page ?: number
-            }) =>{
-                console.log(status);
-                
-            const filters : CharacterFilterInterface = {
-                status : status,
-                gender : gender,
-                species : species,
-                name : name,
-                page : page
-            }
+        
 
-            console.log(filters);
-            
 
-            getCharactersHelper(filters).then(newCharacterData=>{
-                setCharacters(newCharacterData?.results)
-                setPage(newCharacterData?.info?.page)
-            })
+        const [filters,setFilters] = useState<CharacterFilterInterface>({
+            name : "",
+            status : undefined,
+            species : undefined,
+            gender : undefined,
+            page : 1
+        });
+
+
+        const handleFilterChange = (filterName: keyof CharacterFilterInterface, value: any) => {
+            setFilters({ ...filters, [filterName]: value, page: 1 });
+          };
+
+
+        const changePage = (page : number)=>{
+            setFilters({...filters,page})
         }
 
+        // const searchName = (name : string)=>{
+        //     setFilters({...filters,name,page:1})
+        // }
 
-        console.log(characters);
+
+        useEffect(()=>{
+            changeCharacters(filters)
+        },[filters])
+
+
+        
         
 
     return(
@@ -47,14 +53,16 @@ export default function CharactersPage(){
             <h1 className="font-mono text-4xl mb-2">
                 Characters
             </h1>
-            <SearchBar changeFilter={changeFilter}/>
+            <SearchBar changeSearchTerm={(name :string) => handleFilterChange('name', name)}/>
             <div className="flex flex-col md:flex-row min-h-full mt-8">
                 <div className="basis-1/4">
-                    <Controls changeFilter={changeFilter}/>
+                    <Controls changeStatus={(status) => handleFilterChange('status', status)}
+                    changeGender={(gender) => handleFilterChange('gender', gender)}
+                    changeSpecies={(species) => handleFilterChange('species', species)}/>
                     </div>
-                <div className="basis-3/4 content-center">
+                <div className="basis-3/4 flex flex-col items-center">
                 <CharacterCards characters={characters}/>
-                <PaginationComponent/>
+                <PaginationComponent pageInfo={pageInfo} changePage={changePage} page={filters.page ?? 1}/>
                 </div>
             </div>
         </React.Fragment>

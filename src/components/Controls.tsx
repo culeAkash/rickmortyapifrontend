@@ -27,16 +27,17 @@ const speciesOptions : SpeciesType[] =[
 
 
 
-export default function Controls({changeFilter}:{changeFilter : ChangeFilterType}) {
-
-    const [status,setStatus] = useState<StatusType | undefined>(undefined);
-    const [gender,setGender] = useState<GenderType | undefined>(undefined);
-    const [species,setSpecies] = useState<SpeciesType | undefined>(undefined);
-
-    useEffect(()=>{
-        console.log(status);
-        changeFilter({status,gender,species})
-    },[status,gender,species])
+export default function Controls(
+    {
+        changeGender,
+        changeStatus,
+        changeSpecies
+    }:{
+        changeGender : (gender: GenderType) => void,
+        changeStatus : (status: StatusType) => void,
+        changeSpecies : (species: SpeciesType) => void
+    }
+) {
 
     return (
         <div className="flex flex-col gap-2 place-content-center">
@@ -45,21 +46,21 @@ export default function Controls({changeFilter}:{changeFilter : ChangeFilterType
                 options={statusOptions}
                 sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Status" />}
-                onChange={(event: any, newValue: string | null)=>setStatus(newValue as StatusType)}
+                onChange={(event: any, newValue: string | null)=>changeStatus(newValue as StatusType)}
             />
             <Autocomplete
                 disablePortal
                 options={speciesOptions}
                 sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Species" />}
-                onChange={(event: any, newValue: string | null)=>setSpecies(newValue as SpeciesType)}
+                onChange={(event: any, newValue: string | null)=>changeSpecies(newValue as SpeciesType)}
             />
             <Autocomplete
                 disablePortal
                 options={genderOptions}
                 sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Gender" />}
-                onChange={(event: any, newValue: string | null)=>setGender(newValue as GenderType)}
+                onChange={(event: any, newValue: string | null)=>changeGender(newValue as GenderType)}
             />
         </div>
     )

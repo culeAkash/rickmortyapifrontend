@@ -3,19 +3,19 @@ import SearchIcon from '@mui/icons-material/Search';
 import userEvent from "@testing-library/user-event";
 import { useEffect, useState } from "react";
 import { ChangeFilterType } from "../utils/types";
-
 const DEBOUNCE_DELAY = 1000
 
-export default function SearchBar({changeFilter}:{changeFilter : ChangeFilterType}) {
+
+export default function SearchBar({changeSearchTerm}:{changeSearchTerm : any}) {
 
     const[searchTerm,setSearchTerm] = useState("");
 
 
     useEffect(()=>{
-        const timer = setTimeout(()=>{
-            changeFilter({name : searchTerm})
+        let timeout = setTimeout(()=>{
+            changeSearchTerm(searchTerm)
         },DEBOUNCE_DELAY)
-        return ()=>clearTimeout(timer)
+        return ()=>clearTimeout(timeout)
     },[searchTerm])
 
 

@@ -34,16 +34,13 @@ export interface CharacterInterface {
   created: string;
 }
 
-interface ResponseInfoInterface{
-  count : number
-  page : number
-  next : number
-  prev : number
+export interface PageInfoInterface{
+  pages : number
 }
 
 
 export interface CharacterResponseInterface{
-  info : ResponseInfoInterface
+  info : PageInfoInterface
   results : CharacterInterface[]
 }
 
@@ -54,7 +51,6 @@ export interface CharacterFilterInterface{
   name? : string,
   status? : StatusType
   species? : string
-  type? : string
   gender? :GenderType
   page ?: number
 }
