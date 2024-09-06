@@ -1,6 +1,7 @@
 import { getAllCharacters, getCharacterFromId } from "../services/CharacterService";
 import { getCharacter, getEpisode } from "../services/EpisodeService";
-import { CharacterFilterInterface, CharacterInterface, CharacterResponseInterface, EpisodeInterface} from "./interfaces";
+import { getLocation } from "../services/LocationService";
+import { CharacterFilterInterface, CharacterInterface, CharacterResponseInterface, EpisodeInterface, LocationInterface} from "./interfaces";
 
 export async function getCharactersHelper(params? : CharacterFilterInterface) : Promise<CharacterResponseInterface>{
     console.log(params);
@@ -21,6 +22,15 @@ export async function getEpisodeHelper(episodeId: number): Promise<{ episode: Ep
     const characters = await Promise.all(characterPromises);
 
     return { episode, characters };
+
+}
+
+export async function getLocationHelper(locationId: number): Promise<{ location: LocationInterface; characters: CharacterInterface[] }> {
+    const location = await getLocation(locationId);
+    const characterPromises = location.residents.map((characterUrl) => getCharacter(characterUrl));
+    const characters = await Promise.all(characterPromises);
+
+    return { location, characters };
 
 }
 

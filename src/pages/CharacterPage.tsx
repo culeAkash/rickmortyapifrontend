@@ -26,7 +26,7 @@ export default function CharacterPage() {
         <div className={`w-full text-xl  font-bold p-2 ${character?.status === "Dead" ? " bg-red-600" : character?.status === "Alive" ? "bg-green-700" : "bg-gray-600"} rounded-sm text-white border-1 border-black mt-3 `}>
             <span className='text-center'>{character?.status}</span>
         </div>
-        <div className='flex flex-col mt-3 items-start'>
+        <div className='flex flex-col mt-3 items-start dark:text-gray-300'>
             <div className='text-xl'><span className='font-semibold'>Gender :</span><span> {character?.gender}</span></div>
             <div className='text-xl'><span className='font-semibold'>Location :</span><span> {character?.location.name}</span></div>
             <div className='text-xl'><span className='font-semibold'>Origin :</span><span> {character?.origin.name}</span></div>

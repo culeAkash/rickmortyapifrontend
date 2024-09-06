@@ -6,10 +6,8 @@ import { getEpisodeHelper } from '../utils/helpers'
 import CharacterCards from '../components/CharacterCards'
 
 let episodeOptions : string[] = []
-let episodes :number[] = []
 
 for(let i=1;i<=51;i++){
-    episodes[i] = i;
     episodeOptions.push("Episode "+i)
 }
 
@@ -26,7 +24,9 @@ export default function EpisodePage() {
 
 
  const changeEpisode = (episodeString : string) => {
-    const episodeNumber = parseInt(episodeString.replace("Episode ", ""));
+    let episodeNumber = 1
+    if(episodeString)
+         episodeNumber = parseInt(episodeString.replace("Episode ", ""));
     setEpisodeNumber(episodeNumber);
  }
 
@@ -41,7 +41,7 @@ export default function EpisodePage() {
 
   return (
     <React.Fragment>
-        <div className='mb-4'>
+        <div className='mb-4 dark:text-gray-300'>
         <h1 className="font-semibold text-4xl mb-2">
                 Episode Name : <span className='text-blue-600'>{episode?.name}</span>
             </h1>

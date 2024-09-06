@@ -44,7 +44,7 @@ export default function Controls(
             <Autocomplete
                 disablePortal
                 options={statusOptions}
-                sx={{ width: 300 }}
+                sx={{ width: 300}}
                 renderInput={(params) => <TextField {...params} label="Status" />}
                 onChange={(event: any, newValue: string | null)=>changeStatus(newValue as StatusType)}
             />

@@ -1,11 +1,10 @@
 import axios from "axios";
-import { CharacterFilterInterface, CharacterInterface, EpisodeInterface } from "../utils/interfaces";
+import { CharacterInterface, LocationInterface } from "../utils/interfaces";
 import { myAxios } from "./myAxios";
 
-
-export const getEpisode = async (episodeNumber: number): Promise<EpisodeInterface> => {
+export const getLocation = async (locationNumber: number): Promise<LocationInterface> => {
     try {
-        const response = await myAxios.get<EpisodeInterface>(`/episode/${episodeNumber}`);
+        const response = await myAxios.get<LocationInterface>(`/location/${locationNumber}`);
         return response.data;
     } catch (error) {
         console.error(error);

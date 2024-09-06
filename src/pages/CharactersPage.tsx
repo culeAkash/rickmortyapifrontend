@@ -50,7 +50,7 @@ export default function CharactersPage(){
 
     return(
         <React.Fragment>
-            <h1 className="font-mono text-4xl mb-2">
+            <h1 className="font-mono text-4xl mb-2 dark:text-gray-300">
                 Characters
             </h1>
             <SearchBar changeSearchTerm={(name :string) => handleFilterChange('name', name)}/>
