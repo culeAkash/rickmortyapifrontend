@@ -54,3 +54,20 @@ export interface CharacterFilterInterface{
   gender? :GenderType
   page ?: number
 }
+
+
+export interface EpisodeInterface{
+  id : number
+  name : string
+  air_date : string
+  episode : string
+  characters : string[]
+  url : string
+  created : string
+}
+
+
+export interface EpisodeResponseInterface{
+  info : PageInfoInterface
+  results : EpisodeInterface[]
+}

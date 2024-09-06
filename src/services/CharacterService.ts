@@ -1,11 +1,5 @@
-import { CharacterFilterInterface, CharacterResponseInterface } from "../utils/interfaces";
+import { CharacterFilterInterface, CharacterInterface, CharacterResponseInterface } from "../utils/interfaces";
 import { myAxios } from "./myAxios"
-
-
-const params : CharacterFilterInterface = {
-    page : 3
-}
-
 
 export const getAllCharacters = async (params? : CharacterFilterInterface) =>{
     console.log(params);
@@ -15,4 +9,11 @@ export const getAllCharacters = async (params? : CharacterFilterInterface) =>{
     }).then(response => response.data).catch(error => {} );
     
     return data;
+}
+
+
+export const getCharacterFromId = async (id: number)  => {
+    const response = await myAxios.get(`/character/${id}`)
+    console.log(response);
+    return response
 }
